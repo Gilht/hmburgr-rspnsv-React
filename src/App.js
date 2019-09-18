@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Persona/Persona';
+import Persona from './Persona/Persona';
 
 class App extends Component {
   state = {
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 },
-      { name: 'Stephanie', age: 26 }
+      { nombre: 'solovino', edad: 45 },
+      { nombre: 'Cochi', edad: 49 },
+      { nombre: 'Tungas', edad: 32 }
     ],
     otherState: 'some other value'
   };
