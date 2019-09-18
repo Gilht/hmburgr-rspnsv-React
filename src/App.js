@@ -1,32 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
-import Persona from './Persona/Persona';
+import Person from './Persona/Persona';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+class App extends Component {
+  state = {
+    persons: [
+      { name: 'Max', age: 28 },
+      { name: 'Manu', age: 29 },
+      { name: 'Stephanie', age: 26 }
+    ],
+    otherState: 'some other value'
+  };
+
+  switchNameHandler = () => {
+    // console.log('Was clicked!');
+    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+    this.setState({
+      persons: [
+        { nombre: 'Maximilian', edad: 28 },
+        { nombre: 'Manu', edad: 29 },
+        { nombre: 'Stephanie', edad: 27 }
+      ]
+    });
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p>This is really working!</p>
+        <button onClick={this.switchNameHandler}>Switch Name</button>
+        <persona
+          nombre={this.state.persons[0].nombre}
+          edad={this.state.persons[0].edad}
+        />
+        <Persona
+          nombre={this.state.persons[1].nombre}
+          edad={this.state.persons[1].edad}
         >
-          Learn React
-        </a>
-        <Persona nombre="Gilberto Hernandez" edad="28" cd="Mty" />
-        <br></br>
-       <Persona nombre="Las propiedades se cambian lo que no cambia es el codigo del componente"/> 
-      
-      </header>
-    </div>
-  );
-  
+          My Hobbies: Racing
+        </Persona>
+        <Persona
+          nombre={this.state.persons[2].nombre}
+          edad={this.state.persons[2].edad}
+        />
+      </div>
+    );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
+  }
 }
 
 export default App;
+
+
+
