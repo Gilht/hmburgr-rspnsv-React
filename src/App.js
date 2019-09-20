@@ -3,40 +3,56 @@ import './App.css';
 import Persona from './Persona/Persona';
 
 class App extends Component {
-  state = {
+  state = {   
     persons: [
-      { nombre: 'solovino', edad: 45 },
-      { nombre: 'Cochi', edad: 49 },
-      { nombre: 'Tungas', edad: 32 }
+      { nombre: 'alberto', edad: 45 },
+      { nombre: '', edad: 49 },
+      { nombre: 'Julia Rdz ', edad: 32 }
     ],
-    otherState: 'some other value'
+    otherState: 'set txt en el o.state , aun no se ha cambiado nada '
   };
 
-  switchNameHandler = () => {
-    // console.log('Was clicked!');
-    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+  switchNameHandler = (nombre) => {
+    // console.log('');
     this.setState({
       persons: [
-        { nombre: 'Maximilian', edad: 28 },
-        { nombre: 'Manu', edad: 29 },
+        { nombre: nombre, edad: 28 },
+        { nombre: 'Manuel', edad: 29 },
+        { nombre: 'Stephanie', edad: 27 }
+         
+      ],
+      otherState: 'aqui ya se cambio el state alterno por el nuevo al momento de darle click'
+    });
+    console.log(this.state.otherState) //solo cabia cuando le damos soble click //
+  };
+
+  changedNameHandler = (e) => {
+    // console.log('');
+    this.setState({
+      persons: [
+        { nombre: 'random', edad: 28 },
+        { nombre: e.target.value, edad: 29 },
         { nombre: 'Stephanie', edad: 27 }
       ]
-    });
-  };
+    })
+  }
 
   render() {
     return (
+
       <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
-        <button onClick={this.switchNameHandler}>Switch Name</button>
-        <persona
+        <h1>Switching </h1>
+        <p>Make functional components & after that unity test  </p>
+        <button onClick={() => this.switchNameHandler('Name without bind!!')}>Switchear</button>
+        <Persona
           nombre={this.state.persons[0].nombre}
           edad={this.state.persons[0].edad}
+          click={this.switchNameHandler.bind(this,'nombreconBind')}
         />
         <Persona
           nombre={this.state.persons[1].nombre}
           edad={this.state.persons[1].edad}
+          changed={this.changedNameHandler} 
         >
           My Hobbies: Racing
         </Persona>
@@ -46,6 +62,7 @@ class App extends Component {
         />
       </div>
     );
+  
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
