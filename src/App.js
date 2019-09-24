@@ -17,7 +17,7 @@ class App extends Component {
     this.setState({
       persons: [
         { nombre: nombre, edad: 28 },
-        { nombre: 'Manuel', edad: 29 },
+        { nombre: '', edad: 29 },
         { nombre: 'Stephanie', edad: 27 }
          
       ],
@@ -31,19 +31,26 @@ class App extends Component {
     this.setState({
       persons: [
         { nombre: 'random', edad: 28 },
-        { nombre: e.target.value, edad: 29 },
+        { nombre: e.target.value, edad: 40 },
         { nombre: 'Stephanie', edad: 27 }
       ]
     })
   }
 
   render() {
+    const style = {
+      backgroundColor: 'white',   
+      padding:'10px',
+      border: '2px solid blue',
+      cursor:'pointer',
+      boxshadow: '5px 5px 5px #000000'
+  };
     return (
 
       <div className="App">
         <h1>Switching </h1>
         <p>Make functional components & after that unity test  </p>
-        <button onClick={() => this.switchNameHandler('Name without bind!!')}>Switchear</button>
+        <button style={style} onClick={() => this.switchNameHandler('Name without bind!!')}>Switchear</button>
         <Persona
           nombre={this.state.persons[0].nombre}
           edad={this.state.persons[0].edad}
@@ -51,7 +58,7 @@ class App extends Component {
         />
         <Persona
           nombre={this.state.persons[1].nombre}
-          edad={this.state.persons[1].edad}
+         edad={this.state.persons[1].edad}
           changed={this.changedNameHandler} 
         >
           My Hobbies: Racing

@@ -1,0 +1,9 @@
+.Persona{
+    width:  60%;
+    padding: 25px;
+    margin: 30px auto;
+    border-style: solid;
+    color: #0c4777;
+    box-shadow: 5px 5px 5px #054c9e;
+    text-align: center;
+}
