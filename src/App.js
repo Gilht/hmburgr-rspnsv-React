@@ -1,7 +1,9 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import './App.css';
 import Persona from './Persona/Persona';
 
+/* eslint-disable */
 class App extends Component {
   state = {   
     persons: [
@@ -9,7 +11,8 @@ class App extends Component {
       { nombre: '', edad: 49 },
       { nombre: 'Julia Rdz ', edad: 32 }
     ],
-    otherState: 'set txt en el o.state , aun no se ha cambiado nada '
+    otherState: 'set txt en el o.state , aun no se ha cambiado nada ',
+    showPersons: false
   };
 
   switchNameHandler = (nombre) => {
@@ -18,7 +21,7 @@ class App extends Component {
       persons: [
         { nombre: nombre, edad: 28 },
         { nombre: '', edad: 29 },
-        { nombre: 'Stephanie', edad: 27 }
+        { nombre: 'yolanda', edad: 27 }
          
       ],
       otherState: 'aqui ya se cambio el state alterno por el nuevo al momento de darle click'
@@ -37,36 +40,62 @@ class App extends Component {
     })
   }
 
+  togglePersonsHandler = () => {
+    this.setState ({
+      showPersons: true 
+    })
+  } 
+
   render() {
+    // EN ESTA CONSTANTE SE APLICAN LOS ESTILOS EN LINEA 
     const style = {
       backgroundColor: 'white',   
       padding:'10px',
       border: '2px solid blue',
       cursor:'pointer',
-      boxshadow: '5px 5px 5px #000000'
   };
+
+  //este if es el necesario para hacer el contenido condicional// 
+  let persons = null;
+
+  
+  if(this.state.showPersons){
+   persons = (                   //tiene que tener igual ya que le asignaremos contenido a la variable y no dejarlo como funcion: persons()
+      <div>
+            <Persona
+              nombre={this.state.persons[0].nombre} 
+              edad={this.state.persons[0].edad}
+              click={this.switchNameHandler.bind(this,'nombreconBind')}
+            />
+            
+            <Persona
+              nombre={this.state.persons[1].nombre}
+            edad={this.state.persons[1].edad}
+              changed={this.changedNameHandler} 
+            >
+              My Hobbies: Racing
+            
+            </Persona>
+
+            <Persona
+              nombre={this.state.persons[2].nombre}
+              edad={this.state.persons[2].edad}
+            />
+        </div>
+    );       // <-- cerramos con ; ya que se interpreta como un objeto el cual cerramos 
+  }
+   else {(this.state.showPersons) ;}
+
     return (
 
       <div className="App">
         <h1>Switching </h1>
-        <p>Make functional components & after that unity test  </p>
-        <button style={style} onClick={() => this.switchNameHandler('Name without bind!!')}>Switchear</button>
-        <Persona
-          nombre={this.state.persons[0].nombre}
-          edad={this.state.persons[0].edad}
-          click={this.switchNameHandler.bind(this,'nombreconBind')}
-        />
-        <Persona
-          nombre={this.state.persons[1].nombre}
-         edad={this.state.persons[1].edad}
-          changed={this.changedNameHandler} 
-        >
-          My Hobbies: Racing
-        </Persona>
-        <Persona
-          nombre={this.state.persons[2].nombre}
-          edad={this.state.persons[2].edad}
-        />
+        
+          <button style={style} onClick={this.togglePersonsHandler}> Mostrar contenido</button>
+          {persons}
+        
+          {/* boton para cambiar los nombres con los del otro estado */}
+          <button className="btn btn-success" onClick={() => this.switchNameHandler('Nombre que asigno swith NameHandler')}>Switchear estado </button>
       </div>
     );
   
