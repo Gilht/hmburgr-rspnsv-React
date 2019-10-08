@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Persona from './Persona/Persona';
-
+  
 /* eslint-disable */
 class App extends Component {
   state = {   
@@ -15,20 +15,28 @@ class App extends Component {
     showPersons: false
   };
 
-  switchNameHandler = (nombre) => {
-    // console.log('');
-    this.setState({
-      persons: [
-        { nombre: nombre, edad: 28 },
-        { nombre: '', edad: 29 },
-        { nombre: 'yolanda', edad: 27 }
+  //Cambia cuando clickeo el boton de switch
+  // switchNameHandler = (nombre) => {
+  //   // console.log('');
+  //   this.setState({
+  //     persons: [
+  //       { nombre: nombre, edad: 28 },
+  //       { nombre: '', edad: 29 },
+  //       { nombre: 'yolanda', edad: 27 }
          
-      ],
-      otherState: 'aqui ya se cambio el state alterno por el nuevo al momento de darle click'
-    });
-    console.log(this.state.otherState) //solo cabia cuando le damos soble click //
-  };
+  //     ],
+  //     otherState: 'aqui ya se cambio el state alterno por el nuevo al momento de darle click'
+  //   });
+  //   console.log(this.state.otherState) //solo cabia cuando le damos soble click //
+  // };
 
+  deletePersonsHandler = (personIndex) => {
+    const persons = [...this.state.persons];
+      persons.splice(personIndex, 1);
+      this.setState({persons: persons});
+    }
+
+  //Cambia cuando tecleo algo en el espacio en blanco en automatico
   changedNameHandler = (e) => {
     // console.log('');
     this.setState({
@@ -39,11 +47,10 @@ class App extends Component {
       ]
     })
   }
-
+  //Es la funcion que muestra contenido bajo condiciones
   togglePersonsHandler = () => {
-    this.setState ({
-      showPersons: true 
-    })
+    const mostrar = this.state.showPersons;
+    this.setState({showPersons: !mostrar });
   } 
 
   render() {
@@ -54,51 +61,45 @@ class App extends Component {
       border: '2px solid blue',
       cursor:'pointer',
   };
+  const fonts = { 
+    fontfamily: 'GillSans',
+    fontsize: '24px',
+    textdecoration: 'underline',
+    color: '#ffffff'
+  };
 
   //este if es el necesario para hacer el contenido condicional// 
   let persons = null;
 
   
   if(this.state.showPersons){
-   persons = (                   //tiene que tener igual ya que le asignaremos contenido a la variable y no dejarlo como funcion: persons()
+   persons = (           //tiene que tener igual ya que le asignaremos contenido a la variable y no dejarlo como funcion: persons()
       <div>
-            <Persona
-              nombre={this.state.persons[0].nombre} 
-              edad={this.state.persons[0].edad}
-              click={this.switchNameHandler.bind(this,'nombreconBind')}
-            />
-            
-            <Persona
-              nombre={this.state.persons[1].nombre}
-            edad={this.state.persons[1].edad}
-              changed={this.changedNameHandler} 
-            >
-              My Hobbies: Racing
-            
-            </Persona>
-
-            <Persona
-              nombre={this.state.persons[2].nombre}
-              edad={this.state.persons[2].edad}
-            />
-        </div>
-    );       // <-- cerramos con ; ya que se interpreta como un objeto el cual cerramos 
+        {this.state.persons.map((persons,index) => {
+            return  <Persona
+                    nombre = {persons.nombre} 
+                    edad = {persons.edad}
+                    click = {() => this.deletePersonsHandler(index)}
+                    />
+           })}
+      </div>          
+    );      
   }
-   else {(this.state.showPersons) ;}
 
     return (
 
       <div className="App">
-        <h1>Switching </h1>
+        <h1 style={fonts} >Switching </h1>
         
           <button style={style} onClick={this.togglePersonsHandler}> Mostrar contenido</button>
-          {persons}
-        
+          
           {/* boton para cambiar los nombres con los del otro estado */}
-          <button className="btn btn-success" onClick={() => this.switchNameHandler('Nombre que asigno swith NameHandler')}>Switchear estado </button>
+          <button  className="btn btn-success" >Switchear estado </button>
+          {persons}
       </div>
     );
-  
+    // onClick={() => this.switchNameHandler('Nombre que asigno swith NameHandler')}------ esto va en el button de arriba como atributo
+
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
