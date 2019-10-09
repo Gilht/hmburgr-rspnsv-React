@@ -7,17 +7,17 @@ import Persona from './Persona/Persona';
 class App extends Component {
   state = {   
     persons: [
-      { nombre: 'alberto', edad: 45 },
-      { nombre: '', edad: 49 },
-      { nombre: 'Julia Rdz ', edad: 32 }
+      { id:'1', nombre: 'alberto', edad: 45 },
+      { id:'2', nombre: '', edad: 49 },
+      { id:'3', nombre: 'Julia Rdz', edad: 32 }
     ],
     otherState: 'set txt en el o.state , aun no se ha cambiado nada ',
     showPersons: false
   };
-
+ 
   //Cambia cuando clickeo el boton de switch
   // switchNameHandler = (nombre) => {
-  //   // console.log('');
+    //   // console.log('');
   //   this.setState({
   //     persons: [
   //       { nombre: nombre, edad: 28 },
@@ -80,6 +80,7 @@ class App extends Component {
                     nombre = {persons.nombre} 
                     edad = {persons.edad}
                     click = {() => this.deletePersonsHandler(index)}
+                    key = {persons.id}
                     />
            })}
       </div>          
