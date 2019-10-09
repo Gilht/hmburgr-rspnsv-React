@@ -23,7 +23,7 @@ class App extends Component {
   //       { nombre: nombre, edad: 28 },
   //       { nombre: '', edad: 29 },
   //       { nombre: 'yolanda', edad: 27 }
-         
+          
   //     ],
   //     otherState: 'aqui ya se cambio el state alterno por el nuevo al momento de darle click'
   //   });
@@ -36,19 +36,28 @@ class App extends Component {
       this.setState({persons: persons});
     }
 
-  //Cambia cuando tecleo algo en el espacio en blanco en automatico
-  changedNameHandler = (e) => {
+  //Cambia cuando tecleo algo en el espacio en blanco en automatico, solo funciona si tecleabamos algo en el espacio de otra forma no 
+  changedNameHandler = (e, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+     });
+
+     const person = {
+       ...this.state.persons[personIndex] 
+     };
+
+    person.nombre = e.target.value;
+
+    const persons = [...this.state.persons];
+     persons[personIndex] = person;
+
     // console.log('');
     this.setState({
-      persons: [
-        { nombre: 'random', edad: 28 },
-        { nombre: e.target.value, edad: 40 },
-        { nombre: 'Stephanie', edad: 27 }
-      ]
+      persons: persons
     })
   }
   //Es la funcion que muestra contenido bajo condiciones
-  togglePersonsHandler = () => {
+  togglePersonsHandler  = () => {
     const mostrar = this.state.showPersons;
     this.setState({showPersons: !mostrar });
   } 
@@ -81,6 +90,7 @@ class App extends Component {
                     edad = {persons.edad}
                     click = {() => this.deletePersonsHandler(index)}
                     key = {persons.id}
+                    changed = {(e) => this.changedNameHandler(e, person.id)}            
                     />
            })}
       </div>          
