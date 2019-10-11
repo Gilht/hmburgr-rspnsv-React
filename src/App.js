@@ -4,15 +4,15 @@ import './App.css';
 import Persona from './Persona/Persona';
   
 /* eslint-disable */
-class App extends Component {
+class App extends React.Component {
   state = {   
     persons: [
-      { id:'1', nombre: 'alberto', edad: 45 },
+      { id:'1', nombre: 'Gilberto', edad: 22 },
       { id:'2', nombre: '', edad: 49 },
       { id:'3', nombre: 'Julia Rdz', edad: 32 }
     ],
     otherState: 'set txt en el o.state , aun no se ha cambiado nada ',
-    showPersons: false
+    showPersons: false          //tiene influencia sobre si el contenido debe ser mostrado --> this.state.showPersons
   };
  
   //Cambia cuando clickeo el boton de switch
@@ -37,7 +37,7 @@ class App extends Component {
     }
 
   //Cambia cuando tecleo algo en el espacio en blanco en automatico, solo funciona si tecleabamos algo en el espacio de otra forma no 
-  changedNameHandler = (e, id) => {
+  nameChangeHandler = (e, id) => {
     const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
      });
@@ -45,8 +45,7 @@ class App extends Component {
      const person = {
        ...this.state.persons[personIndex] 
      };
-
-    person.nombre = e.target.value;
+      person.nombre = e.target.value;
 
     const persons = [...this.state.persons];
      persons[personIndex] = person;
@@ -56,16 +55,19 @@ class App extends Component {
       persons: persons
     })
   }
+
   //Es la funcion que muestra contenido bajo condiciones
   togglePersonsHandler  = () => {
     const mostrar = this.state.showPersons;
-    this.setState({showPersons: !mostrar });
+    this.setState({
+      showPersons: !mostrar });
   } 
 
   render() {
     // EN ESTA CONSTANTE SE APLICAN LOS ESTILOS EN LINEA 
     const style = {
-      backgroundColor: 'white',   
+      backgroundColor: 'green',   
+      color: 'white',
       padding:'10px',
       border: '2px solid blue',
       cursor:'pointer',
@@ -74,7 +76,7 @@ class App extends Component {
     fontfamily: 'GillSans',
     fontsize: '24px',
     textdecoration: 'underline',
-    color: '#ffffff'
+    color: '#f3f3ff'
   };
 
   //este if es el necesario para hacer el contenido condicional// 
@@ -84,17 +86,19 @@ class App extends Component {
   if(this.state.showPersons){
    persons = (           //tiene que tener igual ya que le asignaremos contenido a la variable y no dejarlo como funcion: persons()
       <div>
-        {this.state.persons.map((persons,index) => {
+        {this.state.persons.map((person,index) => {
             return  <Persona
-                    nombre = {persons.nombre} 
-                    edad = {persons.edad}
+                    nombre = {person.nombre} 
+                    edad = {person.edad}
                     click = {() => this.deletePersonsHandler(index)}
-                    key = {persons.id}
-                    changed = {(e) => this.changedNameHandler(e, person.id)}            
+                    key = {person.id}
+                    changed = {(e) => this.nameChangeHandler(e, person.id)}            
                     />
            })}
       </div>          
-    );      
+    );     
+    style.backgroundColor = 'red';
+    style.padding = '15px';
   }
 
     return (
@@ -102,10 +106,11 @@ class App extends Component {
       <div className="App">
         <h1 style={fonts} >Switching </h1>
         
-          <button style={style} onClick={this.togglePersonsHandler}> Mostrar contenido</button>
+          <button
+           style={style} onClick={this.togglePersonsHandler}> Mostrar contenido</button>
           
           {/* boton para cambiar los nombres con los del otro estado */}
-          <button  className="btn btn-success" >Switchear estado </button>
+          <button  className="btn btn-info" >Switchear estado </button>
           {persons}
       </div>
     );
