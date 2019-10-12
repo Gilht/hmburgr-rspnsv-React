@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Persona from './Persona/Persona';
-  
+import Radium from 'radium';
+
 /* eslint-disable */
 class App extends React.Component {
   state = {   
@@ -63,15 +64,22 @@ class App extends React.Component {
       showPersons: !mostrar });
   } 
 
+
   render() {
     // EN ESTA CONSTANTE SE APLICAN LOS ESTILOS EN LINEA 
     const style = {
-      backgroundColor: 'green',   
+      backgroundColor: 'red',   
       color: 'white',
       padding:'10px',
       border: '2px solid blue',
       cursor:'pointer',
+      ':hover':{
+        backgroundColor:'greenlight',
+        color:'black'
+      }
   };
+
+
   const fonts = { 
     fontfamily: 'GillSans',
     fontsize: '24px',
@@ -96,21 +104,36 @@ class App extends React.Component {
                     />
            })}
       </div>          
-    );     
-    style.backgroundColor = 'red';
-    style.padding = '15px';
+    );      
+    style.backgroundColor = 'red';      //aqui asignamos un valor nuevo para el estilo, como es JS accedimos al objeto 
+    style.padding = '15px';         //objeto style con su elemento .padding y le asignamos un nuevo valor 
+
+        style[':hover']={
+      backgroundColor:'salmon',
+      color:'black'
+    };
   }
+
+      const clases = [];
+
+      if(this.state.persons.length <= 2 ){   //clases = ['red'];
+        clases.push('red');
+      }
+
+      if(this.state.persons.length <=1 ){  //clases = ['red','bold'];
+        clases.push('bold');
+      }
 
     return (
 
       <div className="App">
         <h1 style={fonts} >Switching </h1>
-        
+         <p className={clases.join('')}> Soy una app echa con React </p>
           <button
            style={style} onClick={this.togglePersonsHandler}> Mostrar contenido</button>
           
           {/* boton para cambiar los nombres con los del otro estado */}
-          <button  className="btn btn-info" >Switchear estado </button>
+          <button  className="btn btn-success" >Switchear estado </button>
           {persons}
       </div>
     );
@@ -120,7 +143,7 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Radium (App);
 
 
 

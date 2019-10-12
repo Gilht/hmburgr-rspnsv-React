@@ -1,6 +1,7 @@
 import React  from 'react'; 
 import './Persona.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import Radium from 'radium';
 // este es un stateless compntnt// 
 
 const persona = (props) => {
@@ -14,4 +15,4 @@ const persona = (props) => {
     )
 };
 
-export default persona;     
+export default Radium(persona);     
