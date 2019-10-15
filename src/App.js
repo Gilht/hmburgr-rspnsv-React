@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Persona from './Persona/Persona';
-import Radium from 'radium';
+import Radium, { StyleRoot } from 'radium';
 
 /* eslint-disable */
 class App extends React.Component {
@@ -74,8 +74,8 @@ class App extends React.Component {
       border: '2px solid blue',
       cursor:'pointer',
       ':hover':{
-        backgroundColor:'greenlight',
-        color:'black'
+        backgroundColor:'salmon',
+        color:'#f3f3ff'
       }
   };
 
@@ -108,10 +108,10 @@ class App extends React.Component {
     style.backgroundColor = 'red';      //aqui asignamos un valor nuevo para el estilo, como es JS accedimos al objeto 
     style.padding = '15px';         //objeto style con su elemento .padding y le asignamos un nuevo valor 
 
-        style[':hover']={
-      backgroundColor:'salmon',
-      color:'black'
-    };
+      style[':hover']={
+      backgroundColor:'purple',
+      color:'white'
+    }
   }
 
       const clases = [];
@@ -125,7 +125,7 @@ class App extends React.Component {
       }
 
     return (
-
+      <StyleRoot>
       <div className="App">
         <h1 style={fonts} >Switching </h1>
          <p className={clases.join('')}> Soy una app echa con React </p>
@@ -136,6 +136,7 @@ class App extends React.Component {
           <button  className="btn btn-success" >Switchear estado </button>
           {persons}
       </div>
+      </StyleRoot>
     );
     // onClick={() => this.switchNameHandler('Nombre que asigno swith NameHandler')}------ esto va en el button de arriba como atributo
 
