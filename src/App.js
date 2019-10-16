@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Persona from './Persona/Persona';
-import Radium, { StyleRoot } from 'radium';
 
 /* eslint-disable */
 class App extends React.Component {
@@ -73,12 +72,11 @@ class App extends React.Component {
       padding:'10px',
       border: '2px solid blue',
       cursor:'pointer',
-      ':hover':{
-        backgroundColor:'salmon',
-        color:'#f3f3ff'
-      }
+      // ':hover':{
+      //   backgroundColor:'salmon',        <=== ESTE ERA UN STYLE (PSEUDOSLCTOR :HOVER )DEFINIDO CON RADIUM
+      //   color:'#f3f3ff'
+      // }
   };
-
 
   const fonts = { 
     fontfamily: 'GillSans',
@@ -108,10 +106,11 @@ class App extends React.Component {
     style.backgroundColor = 'red';      //aqui asignamos un valor nuevo para el estilo, como es JS accedimos al objeto 
     style.padding = '15px';         //objeto style con su elemento .padding y le asignamos un nuevo valor 
 
-      style[':hover']={
-      backgroundColor:'purple',
-      color:'white'
-    }
+    // ESTE ERA UN STYLE SETEADO CON RADIUM 
+    //   style[':hover']={
+    //   backgroundColor:'purple',
+    //   color:'white'
+    // }
   }
 
       const clases = [];
@@ -125,18 +124,18 @@ class App extends React.Component {
       }
 
     return (
-      <StyleRoot>
-      <div className="App">
-        <h1 style={fonts} >Switching </h1>
-         <p className={clases.join('')}> Soy una app echa con React </p>
-          <button
-           style={style} onClick={this.togglePersonsHandler}> Mostrar contenido</button>
-          
-          {/* boton para cambiar los nombres con los del otro estado */}
-          <button  className="btn btn-success" >Switchear estado </button>
-          {persons}
-      </div>
-      </StyleRoot>
+      
+        <div className="App">
+          <h1 style={fonts} >Switching </h1>
+          <p className={clases.join('')}> Soy una app echa con React </p>
+            <button
+            style={style} onClick={this.togglePersonsHandler}> Mostrar contenido</button>
+            
+            {/* boton para cambiar los nombres con los del otro estado */}
+            <button  className="btn btn-success" >Switchear estado </button>
+            {persons}
+        </div>
+     
     );
     // onClick={() => this.switchNameHandler('Nombre que asigno swith NameHandler')}------ esto va en el button de arriba como atributo
 
@@ -144,7 +143,7 @@ class App extends React.Component {
   }
 }
 
-export default Radium (App);
+export default App;
 
 
 
